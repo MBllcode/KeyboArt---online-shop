@@ -1,0 +1,77 @@
+﻿@using KeyboArt.Data.ViewModels;
+@model ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Shopping cart summary";
+}
+<div class="row text-center">
+    <div class="col-md-12">
+        <div class="mb-3 text-center">
+            <h2 id="cart">Twój koszyk</h2>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>                    
+                    <th>Nazwa</th>
+                    <th>Podgląd</th>                   
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Łącznie</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                {
+                    <tr>                       
+                        <td class="align-middle">@item.Product.Name</td>
+                        <td class="align-middle"><img style="max-width: 35%;" src="@item.Product.ImageURL" /></td>                        
+                        <td class="align-middle">@item.Product.Price.ToString("c")</td>
+                        <td class="align-middle">@item.Amount</td>
+                        <td class="align-middle">@((item.Amount*item.Product.Price).ToString("c"))</td>
+                        <td class="align-middle">
+                            @if(item.Product.Quantity == 0)
+                            {
+                                <p class="text-danger" style="font-size:0.8rem; font-weight:bold;">To jest ostatnia sztuka!</p>
+                            }
+                            <a class="text-danger" asp-controller="Orders" asp-action="RemoveFromShoppingCart" asp-route-id="@item.Product.Id"><i class="bi bi-cart-dash"></i></a>
+                            |
+                            @if (item.Product.Quantity > 0)
+                            {
+                                <a class="text-success" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Product.Id"><i class="bi bi-cart-plus"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right"></td>
+                    <td><b>Do zapłaty:</b></td>
+                    <td>
+                        @Model.ShoppingCartTotal.ToString("c")
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-center mt-2">           
+            <div class="btn-group float-left">
+                <a class="btn btn-outline-secondary" asp-controller="ProductsFilter" asp-action="Index">
+                    <i class="bi bi-box-arrow-left"></i> Kontynuuj zakupy
+                </a>
+            </div>
+            <div class="btn-group float-right">
+                @if (@Model.ShoppingCartTotal > 0)
+                {
+                    <a class="btn btn-success" asp-action="CompleteOrder">
+                        <i class="bi bi-bag-check"></i> Potwierdź zamówienie
+                    </a>   
+                }
+            </div>
+        </div>
+    </div>
+</div>

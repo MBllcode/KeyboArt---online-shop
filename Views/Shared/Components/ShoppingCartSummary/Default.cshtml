@@ -1,0 +1,10 @@
+﻿@model int;
+
+@if (Model > 0 && (User.Identity.IsAuthenticated || User.IsInRole("Admin")))
+{
+
+        <a class="text-dark" asp-controller="Orders" asp-action="ShoppingCart">
+            <i class="bi bi-cart4 ml-2"></i> @Model
+            </a>
+
+}

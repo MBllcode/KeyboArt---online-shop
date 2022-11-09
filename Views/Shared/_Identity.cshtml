@@ -1,0 +1,39 @@
+﻿@inject UserManager<ApplicationUser> UserManager;
+
+@if (User.Identity.IsAuthenticated)
+{
+    <form class="navbar-form navbar-left mr-2 mb-2" asp-controller="ProductsFilter" asp-action="Filter">
+        <div class="input-group">
+            <input name="searchString" type="text" class="form-control" placeholder="Szukaj">
+            <div class="input-group-btn">
+                <button class="btn btn-default bg-warning" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="dropdown mr-2">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-badge"></i> Witaj @UserManager.GetUserName(User)
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+
+            <li>
+                <a class="dropdown-item" asp-controller="Orders" asp-action="Index"><i class="bi bi-truck"></i> Zamówienia</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="dropdown-item" asp-controller="Products" asp-action="Index"><i class="bi bi-bag"></i> Produkty</a>
+                    <a class="dropdown-item" asp-controller="Categories" asp-action="Index"><i class="bi bi-tags"></i> Kategorie</a>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Users"><i class="bi bi-person-lines-fill"></i> Klienci</a>
+                }
+            </li>
+        </ul>
+    </div>
+    <form asp-controller="Account" asp-action="Logout">
+        <button class="btn btn-outline-danger my-2 my-sm-0">
+            <i class="bi bi-box-arrow-in-right"></i> Wyloguj
+        </button>
+    </form>
+}
+

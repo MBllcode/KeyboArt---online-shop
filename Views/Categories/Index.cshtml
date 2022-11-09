@@ -1,0 +1,53 @@
+﻿@model IEnumerable<KeyboArt.Models.Category>
+
+@{
+    ViewData["Title"] = "Kategorie";
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <h1>Lista kategorii</h1>
+
+
+    <p>
+        <a style="font-size: 15px;" class="btn btn-sm btn-success mb-2 mt-2 pl-3 pr-3 pt-2 pb-2" asp-action="Create"><i class="bi bi-plus-square"></i> Dodaj kategorię</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                 <th>
+                    @Html.DisplayName("Zdjęcie kategorii")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="h4">
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        <img style="width: 120px;" src=@Html.DisplayFor(modelItem => item.ImageURL)>
+                    </td>
+                    <td class="h4">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td class=" col-md-2">
+                        <a class="btn container-fluid btn-outline-primary mb-2" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edycja</a>
+                        <a class="btn container-fluid btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

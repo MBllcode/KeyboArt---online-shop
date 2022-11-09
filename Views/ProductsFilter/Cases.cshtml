@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1 class="text-center m-5">Obudowy</h1>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        @if (item.Quantity > 0)
+        {
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <a class="text-secondary" asp-action="Details" asp-route-id="@item.Id">
+                        <img src="@Html.DisplayFor(modelItem => item.ImageURL)" alt="Klawiatury" style="width:100%">
+                        <div class="caption">
+                            <p class="text-uppercase text-dark text-center" style="font-size: 1.4rem;">@Html.DisplayFor(modelItem => item.Name)</p>
+                            <p class="text-uppercase text-dark text-center font-weight-bold mb-5" style="font-size: 1.1rem;">@Html.DisplayFor(modelItem => item.Price)</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>
