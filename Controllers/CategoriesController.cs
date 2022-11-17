@@ -1,13 +1,8 @@
-﻿using KeyboArt.Data;
-using KeyboArt.Data.Services;
+﻿using KeyboArt.Data.Services;
 using KeyboArt.Data.Static;
 using KeyboArt.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KeyboArt.Controllers

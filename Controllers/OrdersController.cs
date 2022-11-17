@@ -2,12 +2,10 @@
 using KeyboArt.Data.Cart;
 using KeyboArt.Data.Services;
 using KeyboArt.Data.ViewModels;
-using KeyboArt.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
